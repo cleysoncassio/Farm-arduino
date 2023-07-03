@@ -1,0 +1,66 @@
+#define TEMPERATURE_PIN A0
+#define FAN_PIN 8
+#define LED_PIN 9
+#define BUZZER_PIN 10
+
+void setup() {
+  pinMode(FAN_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+// Gera um loop aleatório entre 5º e 50º Celsius
+void loop() {
+  float temperatura = (rand() % 60) + 5;  
+  
+  Serial.print("Temperatura: ");
+  Serial.print(temperatura);
+  Serial.println("°C");
+ 
+  // Se a temperatura for maior ou igual a 20, aciona ventilador; caso contrário, desliga.
+  if (temperatura >= 30) {
+    acionarVentilador();
+  } else {
+    desligarVentilador();
+  }
+  
+  // Se a temperatura for maior que 40º, liga a luz de emergência
+  if (temperatura > 50) {
+    acionarEmergencia();
+  } else {
+    desligarEmergencia();
+  }
+  
+  delay(2000); // Aguarda 2 segundos antes de fazer a próxima leitura
+}
+
+// Função para ler a temperatura usando o pino analógico
+float lerTemperatura() {
+  int valorADC = analogRead(TEMPERATURE_PIN);
+  float tensao = (valorADC / 1023.0) * 5.0;
+  float temperatura = (tensao - 0.5) * 100.0;
+  return temperatura;
+}
+
+// Função para acionar o ventilador
+void acionarVentilador() {
+  digitalWrite(FAN_PIN, HIGH);
+}
+
+// Função para desligar o ventilador
+void desligarVentilador() {
+  digitalWrite(FAN_PIN, LOW);
+}
+
+// Função para acionar a luz de emergência e a buzina
+void acionarEmergencia() {
+  digitalWrite(LED_PIN, HIGH);
+  digitalWrite(BUZZER_PIN, HIGH);
+}
+
+// Função para desligar a luz de emergência e a buzina
+void desligarEmergencia() {
+  digitalWrite(LED_PIN, LOW);
+  digitalWrite(BUZZER_PIN, LOW);
+}
