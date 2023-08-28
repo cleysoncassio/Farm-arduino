@@ -1,7 +1,7 @@
 # Farm-arduino
 Mini projeto de estufa para hortaliças.
 
-![Estufa de Hortaliças][imagens/image.png]
+![Estufa de Hortaliças][https://github.com/cleysoncassio/Farm-arduino/blob/master/imagens/image.png]
 
 
 # Projeto de Estufa para Hortaliças
